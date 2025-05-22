@@ -1,4 +1,9 @@
 "use strict";
+/**
+ * Este archivo define el controlador para las finanzas.
+ * Gestiona las rutas HTTP para crear, consultar, actualizar y eliminar transacciones (ingresos/gastos).
+ * También permite filtrar transacciones por club mediante un parámetro de consulta (`clubId`).
+ */
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -26,8 +31,8 @@ let FinancesController = class FinancesController {
         return this.financesService.create(createTransactionDto);
     }
     // 🟡 Obtiene todas las transacciones registradas
-    findAll() {
-        return this.financesService.findAll();
+    findAll(clubId) {
+        return this.financesService.findAll(clubId); // 👈 pasa clubId al servicio
     }
     // 🔵 Busca una transacción por su ID (UUID)
     findOne(id) {
@@ -52,8 +57,9 @@ __decorate([
 ], FinancesController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
+    __param(0, (0, common_1.Query)('clubId')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], FinancesController.prototype, "findAll", null);
 __decorate([

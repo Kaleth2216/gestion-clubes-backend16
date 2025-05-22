@@ -20,14 +20,33 @@ enum TransactionType {
   EXPENSE
 }
 
+model Club {
+  id          String  @id @default(uuid())
+  name        String
+  founder     String
+  description String
+  foundedYear String?
+
+  members  Member[]
+  events   Event[]
+  finances Transaction[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 model Member {
-  id        String   @id @default(uuid())
-  name      String
-  email     String   @unique
-  password  String
-  role      Role     @default(MEMBER)
-  status    Boolean  @default(true)
-  profileImageUrl String? // avatar del miembro
+  id              String  @id @default(uuid())
+  name            String
+  email           String  @unique
+  password        String
+  role            Role    @default(MEMBER)
+  status          Boolean @default(true)
+  profileImageUrl String?
+
+  clubId String
+  club   Club   @relation(fields: [clubId], references: [id])
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -38,9 +57,13 @@ model Event {
   description String?
   location    String
   date        DateTime
-  imageUrl String? // URL pública del póster o imagen del evento
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  imageUrl    String?
+
+  clubId String
+  club   Club   @relation(fields: [clubId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Transaction {
@@ -48,5 +71,9 @@ model Transaction {
   type        TransactionType
   amount      Float
   description String?
-  createdAt   DateTime        @default(now())
+
+  clubId String
+  club   Club   @relation(fields: [clubId], references: [id])
+
+  createdAt DateTime @default(now())
 }

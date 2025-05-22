@@ -1,4 +1,8 @@
 "use strict";
+/**
+ * Este archivo define el DTO (Data Transfer Object) para la creación de eventos.
+ * Valida los datos requeridos para registrar un nuevo evento asociado a un club.
+ */
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -33,4 +37,8 @@ __decorate([
     (0, class_validator_1.IsDateString)(),
     __metadata("design:type", Date)
 ], CreateEventDto.prototype, "date", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateEventDto.prototype, "clubId", void 0);
 //# sourceMappingURL=create-event.dto.js.map

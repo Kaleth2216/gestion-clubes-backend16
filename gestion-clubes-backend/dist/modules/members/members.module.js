@@ -7,6 +7,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MembersModule = void 0;
+/**
+ * Este archivo define el módulo de miembros.
+ * Agrupa el controlador y el servicio encargados de gestionar los miembros de los clubes.
+ */
 const common_1 = require("@nestjs/common");
 const member_controller_1 = require("./controllers/member.controller");
 const member_service_1 = require("./services/member.service");

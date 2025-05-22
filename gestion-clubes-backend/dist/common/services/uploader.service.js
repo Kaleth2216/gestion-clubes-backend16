@@ -1,4 +1,9 @@
 "use strict";
+/**
+ * Este archivo define el servicio de subida de archivos a AWS S3.
+ * Permite subir imágenes, generar URLs firmadas para acceso temporal
+ * y eliminar archivos del bucket configurado mediante variables de entorno.
+ */
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -25,7 +30,7 @@ let UploaderService = class UploaderService {
             },
         });
     }
-    // Declaración manual del tipo Multer file
+    // 🟢 Sube una imagen al bucket S3 con un nombre clave personalizado
     async upload(image, key) {
         const command = new client_s3_1.PutObjectCommand({
             Bucket: this.bucketName,
@@ -34,6 +39,7 @@ let UploaderService = class UploaderService {
         });
         await this.client.send(command);
     }
+    // 🔵 Genera una URL firmada para acceder temporalmente a una imagen
     async getSignedUrl(key) {
         const command = new client_s3_1.GetObjectCommand({
             Bucket: this.bucketName,
@@ -41,6 +47,7 @@ let UploaderService = class UploaderService {
         });
         return await (0, s3_request_presigner_1.getSignedUrl)(this.client, command, { expiresIn: 3600 });
     }
+    // 🔴 Elimina una imagen del bucket S3 usando su clave
     async delete(key) {
         const command = new client_s3_1.DeleteObjectCommand({
             Bucket: this.bucketName,

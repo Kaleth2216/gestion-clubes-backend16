@@ -13,6 +13,11 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MemberController = void 0;
+/**
+ * Este archivo define el controlador para los miembros.
+ * Gestiona las rutas HTTP para crear, consultar, actualizar y eliminar miembros de un club.
+ * También permite filtrar miembros por club usando el parámetro `clubId`.
+ */
 const common_1 = require("@nestjs/common");
 const member_service_1 = require("../services/member.service");
 const create_member_dto_1 = require("../dto/create-member.dto");
@@ -26,8 +31,11 @@ let MemberController = class MemberController {
         return this.memberService.create(createMemberDto);
     }
     // 🟡 Retorna todos los miembros registrados
-    findAll() {
-        return this.memberService.findAll();
+    findAll(clubId) {
+        if (clubId) {
+            return this.memberService.findByClub(clubId);
+        }
+        return this.memberService.findAll(); // fallback
     }
     // 🔵 Busca un miembro específico por su ID (UUID)
     findOne(id) {
@@ -52,8 +60,9 @@ __decorate([
 ], MemberController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
+    __param(0, (0, common_1.Query)('clubId')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], MemberController.prototype, "findAll", null);
 __decorate([

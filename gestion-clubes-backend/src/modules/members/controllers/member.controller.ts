@@ -1,4 +1,9 @@
-import { Controller, Get, Post, Put, Delete, Body, Param } from '@nestjs/common';
+/**
+ * Este archivo define el controlador para los miembros.
+ * Gestiona las rutas HTTP para crear, consultar, actualizar y eliminar miembros de un club.
+ * También permite filtrar miembros por club usando el parámetro `clubId`.
+ */
+import { Controller, Get, Post, Put, Delete, Body, Param, Query } from '@nestjs/common';
 import { MemberService } from '../services/member.service';
 import { CreateMemberDto } from '../dto/create-member.dto';
 import { UpdateMemberDto } from '../dto/update-member.dto';
@@ -14,10 +19,15 @@ export class MemberController {
   }
 
   // 🟡 Retorna todos los miembros registrados
-  @Get()
-  findAll() {
-    return this.memberService.findAll();
+
+@Get()
+findAll(@Query('clubId') clubId?: string) {
+  if (clubId) {
+    return this.memberService.findByClub(clubId);
   }
+  return this.memberService.findAll(); // fallback
+}
+
 
   // 🔵 Busca un miembro específico por su ID (UUID)
   @Get(':id')

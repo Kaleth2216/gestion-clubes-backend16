@@ -1,4 +1,8 @@
 "use strict";
+/**
+ * Este archivo define el DTO (Data Transfer Object) para la creación de transacciones financieras.
+ * Valida los datos necesarios para registrar ingresos o gastos asociados a un club.
+ */
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -29,4 +33,9 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateTransactionDto.prototype, "description", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], CreateTransactionDto.prototype, "clubId", void 0);
 //# sourceMappingURL=create-transaction.dto.js.map

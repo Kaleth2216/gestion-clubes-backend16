@@ -1,3 +1,9 @@
+/**
+ * Este archivo define el servicio para gestionar miembros.
+ * Incluye la lógica para crear, consultar, actualizar y eliminar miembros en la base de datos.
+ * También permite filtrar miembros por club usando su ID.
+ */
+
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../../prisma/prisma.service';
 import { CreateMemberDto } from '../dto/create-member.dto';
@@ -9,12 +15,34 @@ export class MemberService {
 
   // 🟢 Crea un nuevo miembro en la base de datos con los datos validados desde el DTO
   create(data: CreateMemberDto) {
-    return this.prisma.member.create({ data });
+    const { clubId, ...memberData } = data;
+
+    return this.prisma.member.create({
+      data: {
+        ...memberData,
+        club: {
+          connect: { id: clubId },
+        },
+      },
+    });
   }
 
   // 🟡 Obtiene todos los miembros registrados en la base de datos
   findAll() {
     return this.prisma.member.findMany();
+  }
+
+  // 🟡 Obtiene los miembros de un club específico
+  async findByClub(clubId: string) {
+    return this.prisma.member.findMany({
+      where: { clubId },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+      },
+    });
   }
 
   // 🔵 Busca un miembro por su ID (tipo UUID)

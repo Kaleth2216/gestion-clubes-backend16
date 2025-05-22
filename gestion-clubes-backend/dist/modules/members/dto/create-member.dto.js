@@ -1,4 +1,10 @@
 "use strict";
+/**
+ * Este archivo define el DTO para la creación de miembros.
+ * Se utiliza para validar los datos al registrar un nuevo miembro en un club,
+ * incluyendo información personal, credenciales y rol dentro del club.
+ * Los campos `status` y fechas son gestionados automáticamente por Prisma.
+ */
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -33,4 +39,8 @@ __decorate([
     (0, class_validator_1.IsEnum)(client_1.Role, { message: 'Role must be one of: PRESIDENT, VICEPRESIDENT, SECRETARY, TREASURER, MEMBER' }),
     __metadata("design:type", String)
 ], CreateMemberDto.prototype, "role", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateMemberDto.prototype, "clubId", void 0);
 //# sourceMappingURL=create-member.dto.js.map

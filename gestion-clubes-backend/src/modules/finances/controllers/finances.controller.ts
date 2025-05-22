@@ -1,4 +1,10 @@
-import { Controller, Get, Post, Put, Delete, Body, Param } from '@nestjs/common';
+/**
+ * Este archivo define el controlador para las finanzas.
+ * Gestiona las rutas HTTP para crear, consultar, actualizar y eliminar transacciones (ingresos/gastos).
+ * También permite filtrar transacciones por club mediante un parámetro de consulta (`clubId`).
+ */
+
+import { Controller, Get, Post, Put, Delete, Body, Param, Query } from '@nestjs/common';
 import { FinancesService } from '../services/finances.service';
 import { CreateTransactionDto } from '../dto/create-transaction.dto';
 import { UpdateTransactionDto } from '../dto/update-transaction.dto';
@@ -15,9 +21,9 @@ export class FinancesController {
 
   // 🟡 Obtiene todas las transacciones registradas
   @Get()
-  findAll() {
-    return this.financesService.findAll();
-  }
+findAll(@Query('clubId') clubId?: string) {
+  return this.financesService.findAll(clubId); // 👈 pasa clubId al servicio
+}
 
   // 🔵 Busca una transacción por su ID (UUID)
   @Get(':id')

@@ -1,4 +1,9 @@
 "use strict";
+/**
+ * Este archivo define el controlador para los eventos.
+ * Gestiona las rutas HTTP para crear, consultar, actualizar y eliminar eventos.
+ * También permite filtrar eventos por club mediante un parámetro de consulta (`clubId`).
+ */
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -13,7 +18,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EventController = void 0;
-const common_1 = require("@nestjs/common");
+const common_1 = require("@nestjs/common"); // 👈 Agrega Query
 const event_service_1 = require("../services/event.service");
 const create_event_dto_1 = require("../dto/create-event.dto");
 const update_event_dto_1 = require("../dto/update-event.dto");
@@ -21,23 +26,23 @@ let EventController = class EventController {
     constructor(eventService) {
         this.eventService = eventService;
     }
-    // 🟢 Crea un nuevo evento con los datos enviados en el cuerpo del request
+    // Crear un nuevo evento
     create(createEventDto) {
         return this.eventService.create(createEventDto);
     }
-    // 🟡 Obtiene todos los eventos registrados
-    findAll() {
-        return this.eventService.findAll();
+    // Obtener todos los eventos, opcionalmente filtrados por clubId
+    findAll(clubId) {
+        return this.eventService.findAll(clubId); // 👈 Se pasa al servicio
     }
-    // 🔵 Busca un evento específico por su ID (UUID)
+    // Obtener un evento específico por su ID
     findOne(id) {
         return this.eventService.findOne(id);
     }
-    // 🟣 Actualiza un evento específico según su ID (UUID)
+    // Actualizar un evento por su ID
     update(id, updateEventDto) {
         return this.eventService.update(id, updateEventDto);
     }
-    // 🔴 Elimina un evento usando su ID (UUID)
+    // Eliminar un evento por su ID
     remove(id) {
         return this.eventService.remove(id);
     }
@@ -52,8 +57,9 @@ __decorate([
 ], EventController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
+    __param(0, (0, common_1.Query)('clubId')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], EventController.prototype, "findAll", null);
 __decorate([
